@@ -51,10 +51,22 @@ public static class AuthenticationExtensions
 
                 // Nếu sau này map role vào token, ASP.NET sẽ hiểu role theo ClaimTypes.Role.
                 options.TokenValidationParameters.RoleClaimType = ClaimTypes.Role;
+
+                // Keycloak thường đặt role trong JSON claim như realm_access/resource_access
+                // thay vì phát thẳng claim role chuẩn của ASP.NET.
+                // Ở đây ta convert các role đó sang ClaimTypes.Role để [Authorize(Roles = "...")] dùng được.
+                options.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context =>
+                    {
+                        if (context.Principal is not null)
+                            KeycloakRoleClaimsMapper.Map(context.Principal);
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
         // Bật authorization để [Authorize] hoạt động.
-        // Không có dòng này thì service có auth nhưng không áp được rule truy cập.
         services.AddAuthorization();
 
         return services;
