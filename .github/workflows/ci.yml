@@ -1,4 +1,4 @@
-name: Platform.Api CI
+name: Api CI
 
 on:
   push:
