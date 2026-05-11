@@ -42,6 +42,12 @@ public static class SwaggerExtensions
                     Array.Empty<string>()
                 }
             });
+
+            var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
+            foreach (var xmlFile in xmlFiles)
+            {
+                options.IncludeXmlComments(xmlFile);
+            }
         });
 
         return services;
