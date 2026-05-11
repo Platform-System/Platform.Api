@@ -1,14 +1,19 @@
 name: CI
 
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  build:
-    uses: Platform-System/Platform.CI-CD/.github/workflows/build-dotnet.yml@main
-    secrets: inherit
-    with:
-      project_path: 'Platform.Api.csproj'
-
+permissions:
+  contents: read
+  packages: write
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    uses: Platform-System/Platform.CI-CD/.github/workflows/build-dotnet.yml@main
+    secrets: inherit
+    with:
+      project_path: 'Platform.Api.csproj'
+
+
 
