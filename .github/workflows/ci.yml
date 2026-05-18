@@ -13,7 +13,8 @@ jobs:
     uses: Platform-System/Platform.CI-CD/.github/workflows/build-dotnet.yml@main
     secrets: inherit
     with:
-      project_path: 'Platform.Api.csproj'
+      project_path: 'Platform.Api.csproj'
+      test_path: 'Platform.Api.Tests/Platform.Api.Tests.csproj'
 
 
 
